@@ -15,6 +15,7 @@ vim e01.sh
 I want the script to display output like this:
 
 **Output:**
+
 ```
 === Command Availability Checker ===
 [OK] bash
@@ -30,7 +31,6 @@ Missing: 2
 > [!tip] #!/bin/bash
 > Start the script with this line to specify Bash as the interpreter.
 
-
 First, I'll use the `echo` command to display text in the terminal.
 Next, I need a list of commands to check. Since I want to practise Bash arrays, I'll store the command names in an array and print them to see how it works.
 
@@ -44,12 +44,14 @@ echo "${commands[@]}"
 ```
 
 **Output:**
+
 ```
 === Command Availability Checking Checker ===
 nmap curl wget git tar
 ```
 
 But printing the entire array on one line isn't quite the output I want. I'll use a `for` loop to go through each command and display it on a separate line.
+
 ```bash
 #!/bin/bash
 
@@ -57,11 +59,12 @@ echo "=== Command Availability Checking Checker ==="
 commands=("nmap" "curl" "wget" "git" "tar")
 
 for command in "${commands[@]}"; do
-	echo "[ ] $command"
+ echo "[ ] $command"
 done
 ```
 
 Now that I can display each command, I want to check whether it is available on my system. I'll use `command -v` inside an `if` statement to check each command.
+
 ```bash
 #!/bin/bash
 
@@ -69,15 +72,16 @@ echo "=== Command Availability Checking Checker ==="
 commands=("nmap" "curl" "wget" "git" "tar")
 
 for command in "${commands[@]}"; do
-	if command -v "$command"; then
-		echo "[OK] $command"
-	else
-		echo "[MISSING] $command"
-	fi
+ if command -v "$command"; then
+  echo "[OK] $command"
+ else
+  echo "[MISSING] $command"
+ fi
 done
 ```
 
 **Output:**
+
 ```
 === Command Availability Checking Checker ===
 [MISSING] nmap
@@ -91,6 +95,7 @@ done
 ```
 
 When I run the script, I notice that `command -v` also prints the path of each available command. I only want to display my own status messages, so I'll redirect the command's output to `/dev/null`.
+
 ```bash
 command -v "$command" >/dev/null 2>&1
 ```
@@ -102,15 +107,16 @@ echo "=== Command Availability Checking Checker ==="
 commands=("nmap" "curl" "wget" "git" "tar")
 
 for command in "${commands[@]}"; do
-	if command -v "$command" > /dev/null 2>&1; then
-		echo "[OK] $command"
-	else
-		echo "[MISSING] $command"
-	fi
+ if command -v "$command" > /dev/null 2>&1; then
+  echo "[OK] $command"
+ else
+  echo "[MISSING] $command"
+ fi
 done
 ```
 
 Now the output is cleaner. I'll also change the loop variable from `command` to `cmd` to make the code easier to read and avoid confusion with the `command` builtin.
+
 ```bash
 #!/bin/bash
 
@@ -118,15 +124,16 @@ echo "=== Command Availability Checking Checker ==="
 commands=("nmap" "curl" "wget" "git" "tar")
 
 for cmd in "${commands[@]}"; do
-	if command -v "$cmd" > /dev/null 2>&1; then
-		echo "[OK] $cmd"
-	else
-		echo "[MISSING] $cmd"
-	fi
+ if command -v "$cmd" > /dev/null 2>&1; then
+  echo "[OK] $cmd"
+ else
+  echo "[MISSING] $cmd"
+ fi
 done
 ```
 
 **Output:**
+
 ```
 === Command Availability Checking Checker ===
 [MISSING] nmap
@@ -136,7 +143,7 @@ done
 [OK] tar
 ```
 
-![[e01.png]]
+![](e01.png)
 
 |Part|Meaning|
 |---|---|
@@ -161,13 +168,13 @@ available=0
 missing=0
 
 for cmd in "${commands[@]}"; do
-	if command -v "$cmd" > /dev/null 2>&1; then
-		echo "[OK] $cmd"
-		((available++))
-	else
-		echo "[MISSING] $cmd"
-		((missing++))
-	fi
+ if command -v "$cmd" > /dev/null 2>&1; then
+  echo "[OK] $cmd"
+  ((available++))
+ else
+  echo "[MISSING] $cmd"
+  ((missing++))
+ fi
 done
 echo
 echo "=== Summary ==="
@@ -177,6 +184,7 @@ echo "Total:     ${#commands[@]}"
 ```
 
 **Output:**
+
 ```
 === Command Availability Checking Checker ===
 [MISSING] nmap
@@ -204,19 +212,19 @@ available=()
 missing=()
 
 for cmd in "${commands[@]}"; do
-	if command -v "$cmd" > /dev/null 2>&1; then
-		available+=($cmd)
-	else
-		missing+=($cmd)
-	fi
+ if command -v "$cmd" > /dev/null 2>&1; then
+  available+=($cmd)
+ else
+  missing+=($cmd)
+ fi
 done
 
 for cmd in "${available[@]}"; do
-	echo "[OK] $cmd"
+ echo "[OK] $cmd"
 done
 echo
 for cmd in "${missing[@]}"; do
-	echo "[MISSING] $cmd"
+ echo "[MISSING] $cmd"
 done
 
 echo
@@ -227,6 +235,7 @@ echo "Total:     ${#commands[@]}"
 ```
 
 **Output:**
+
 ```
 === Command Availability Checking Checker ===
 [OK] curl
@@ -242,7 +251,6 @@ Missing:   2
 Total:     5
 ```
 
-![[e01-v2.png]]
-
+![](e01-v2.png)
 
 Finally, I'll loop through both arrays to display the results separately and show a summary of the total counts.

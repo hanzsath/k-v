@@ -244,3 +244,12 @@ Quote
 
 > [!quote]
 > Lorem ipsum dolor sit amet
+
+Alias: `cite`
+
+
+
+> [!TIP] Test it simple
+> test1
+> test2
+
