@@ -143,7 +143,7 @@ done
 [OK] tar
 ```
 
-![](e01.png)
+![](images/bash/e01.png)
 
 |Part|Meaning|
 |---|---|
@@ -251,6 +251,6 @@ Missing:   2
 Total:     5
 ```
 
-![](e01-v2.png)
+![](images/bash/e01-v2.png)
 
 Finally, I'll loop through both arrays to display the results separately and show a summary of the total counts.
