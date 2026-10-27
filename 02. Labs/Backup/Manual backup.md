@@ -1,3 +1,6 @@
+# Manual Linux Backup
+
+#linux #backup
 Goal: Learn how to manually back up selected configuration and log files on Ubuntu using the `tar` command, without writing a backup script.
 
 By completing this lab, I will learn how to:
@@ -16,6 +19,7 @@ By completing this lab, I will learn how to:
 
 First, create a setup script to generate the sample files and directories.
 Create the script:
+
 ```bash
 mkdir -p ~/backup-lab
 cd ~/backup-lab
@@ -23,6 +27,7 @@ nano setup.sh
 ```
 
 Copy the environment setup script into `setup.sh` and run it:
+
 ```bash
 chmod +x setup.sh
 ./setup.sh
@@ -100,10 +105,10 @@ echo "============================================"
 find "$LAB_DIR" -maxdepth 2 -print | sort
 ```
 
-![](../../images/backup/backup-script.png)
-
+![Backup Script](../../99%20.Attachments/Backup/backup-script.png)
 
 Before creating a backup, inspect the files that will be included.
+
 ```bash
 cd ~/backup-lab
 
@@ -111,17 +116,20 @@ find config data logs -type f
 ```
 
 List the configuration files:
+
 ```bash
 ls -l config/*.conf
 ```
 
 List the log files:
+
 ```bash
 ls -l data/*.log logs/*.log
 ```
 
 Before using a command, I should understand its options rather than memorizing them.
 Open the manual:
+
 ```bash
 man tar
 ```
@@ -129,6 +137,7 @@ man tar
 Search for options inside the manual by typing `/` followed by a keyword, then press Enter. Use `n` to move to the next match, `N` to move to the previous match, and `q` to quit.
 
 The command format is:
+
 ```bash
 tar [OPTIONS] ARCHIVE FILES
 ```
@@ -158,6 +167,7 @@ date +%F-%H:%M
 ```
 
 **Output**:
+
 ```text
 %D  -> 10/26/26
 %F  -> 2026-10-26
@@ -175,37 +185,44 @@ The format specifiers mean:
 |`%S`|Second.|
 
 For filenames, I will use:
+
 ```bash
 date +%F-%H-%M-%S
 ```
 
 Example:
+
 ```text
 2026-10-26-16-02-35
 ```
+
 Using hyphens instead of colons makes the filename easier to handle across different systems.
 
 Create a timestamped archive containing the selected configuration and log files.
+
 ```bash
 tar -czvf backup/$(date +%F-%H:%M).tar.gz config/*.conf data/*.log
 ```
 
-![](../../images/backup/tar-cvzf.png)
+![tar-cvzf](../../99%20.Attachments/Backup/tar-cvzf.png)
 
 Check that the archive exists:
+
 ```bash
 ls -l /backup
 ```
 
-![](../../images/backup/ls-backup.png)
+![ls-backup](../../99%20.Attachments/Backup/ls-backup.png)
 
 Next, inspect the archive without extracting it:
+
 ```bash
 tar -tzf backup/2026-10-26-16\:02.tar.gz
 ```
 
 **output**:
-```
+
+```txt
 config/app.conf
 config/database.conf
 data/transactions.log
@@ -214,32 +231,38 @@ data/transactions.log
 This confirms that the archive contains the expected file paths.
 
 Extract the archive into the restore directory:
+
 ```bash
 tar -xzf backup/2026-10-26-16\:02.tar.gz -C restore/
 ls -l restore/
 ```
 
 **output**:
-```
+
+```txt
 total 8
 drwxrwxr-x 2 lab01 lab01 4096 Oct 26 16:08 config
 drwxrwxr-x 2 lab01 lab01 4096 Oct 26 16:08 data
 ```
 
 Use the `diff` command to compare an original file with its restored copy.
+
 ```bash
 diff [OPTIONS] FILE1 FILE2
 ```
 
 Compare the application configuration file:
+
 ```bash
 diff config/app.conf restore/config/app.conf
 ```
 
-![](../../images/backup/restore.png)
+![restore](../../99%20.Attachments/Backup/restore.png)
+
 If the files are identical, `diff` produces no output and returns exit status `0`.
 
 To understand how `diff` works, deliberately modify the restored copy of `app.conf`.
+
 ```bash
 lab01@lab01-ubuntu:~/backup-lab$ cat restore/config/app.conf
 APP_NAME=test
@@ -264,9 +287,10 @@ lab01@lab01-ubuntu:~/backup-lab$ diff config/app.conf restore/config/app.conf
 
 ```
 
-![](../../images/backup/diff.png)
+![diff](../../99%20.Attachments/Backup/diff.png)
 
 The output shows the differences between the two files.
+
 - `<` indicates a line from the first file.
 - `>` indicates a line from the second file.
 - `1c1` means that line 1 differs between the files.

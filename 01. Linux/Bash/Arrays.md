@@ -1,6 +1,5 @@
 # Array
-[[bash]] [[linux]]
-
+#bash #linux
 ## 1. What Is an Array in Bash?
 
 An **array** is a variable that stores multiple values under one name.
