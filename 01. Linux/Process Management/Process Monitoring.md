@@ -9,7 +9,7 @@ When a Linux system becomes slow, the first thing I want to check is which proce
 ps aux
 ```
 This shows the running processes with their CPU usage, memory usage, PID, state, and command.
-![[../../99 .Attachments/Process/ps_aux.png]]
+![[../../99. Attachments/Process/ps_aux.png]]
 
 If I want to find the processes using the most CPU:
 ```bash

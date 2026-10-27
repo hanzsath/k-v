@@ -1,6 +1,7 @@
 # Arrays
 
 #linux #bash 
+
 Goal: Use an array to check whether important Linux commands are available on your system.
 
 I want to create a small Bash script that checks whether specific Linux commands are installed on my system. While building this script, I also want to learn how to create and use Bash arrays.
@@ -146,7 +147,7 @@ done
 [OK] tar
 ```
 
-![Command Availability Checker output](../../../99%20.Attachments/Bash/e01.png)
+![Command Availability Checker output](../../../99.%20Attachments/Bash/e01.png)
 
 |Part|Meaning|
 |---|---|
@@ -254,6 +255,6 @@ Missing:   2
 Total:     5
 ```
 
-![Command Availability Checker output v2](../../../99%20.Attachments/Bash/e01-v2.png)
+![Command Availability Checker output v2](../../../99.%20Attachments/Bash/e01-v2.png)
 
 Finally, I'll loop through both arrays to display the results separately and show a summary of the total counts.

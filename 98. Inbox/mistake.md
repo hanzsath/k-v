@@ -12,13 +12,13 @@ Your first step as the Process Overseer is to get a complete picture of what's c
 ps -aux
 ```
 i can get all deatils use it,But i want do more things.
-![[../99 .Attachments/Process/ps_aux.png]]
+![[../99. Attachments/Process/ps_aux.png]]
 
 ```bash
 ps -ef
 ```
 
-![[../99 .Attachments/Process/ps_ef.png]]
+![[../99. Attachments/Process/ps_ef.png]]
 
 Both commands list all processes, but the default columns differ:
 
@@ -31,7 +31,7 @@ Both commands list all processes, but the default columns differ:
 watch -n 2 'ps -eo pid,ppid,user,stat,%cpu,%mem,etime,time,comm --sort=-%cpu | head -15'
 ```
 
-![[../99 .Attachments/Process/watch.png]]
+![[../99. Attachments/Process/watch.png]]
 
 ---
 
@@ -40,7 +40,7 @@ in top commnd once i want use sort=cpu i can use
 top -o %CPU
 ```
 
-![[../99 .Attachments/Process/top_CPU.png]]
+![[../99. Attachments/Process/top_CPU.png]]
 
 Watch CPU utilization, memory, load average, process states, and the changing process list.
 

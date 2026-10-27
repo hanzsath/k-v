@@ -1,6 +1,7 @@
 # Manual Linux Backup
 
 #linux #backup
+
 Goal: Learn how to manually back up selected configuration and log files on Ubuntu using the `tar` command, without writing a backup script.
 
 By completing this lab, I will learn how to:
@@ -105,7 +106,7 @@ echo "============================================"
 find "$LAB_DIR" -maxdepth 2 -print | sort
 ```
 
-![Backup Script](../../99%20.Attachments/Backup/backup-script.png)
+![Backup Script](../../99.%20Attachments/Backup/backup-script.png)
 
 Before creating a backup, inspect the files that will be included.
 
@@ -204,7 +205,7 @@ Create a timestamped archive containing the selected configuration and log files
 tar -czvf backup/$(date +%F-%H:%M).tar.gz config/*.conf data/*.log
 ```
 
-![tar-cvzf](../../99%20.Attachments/Backup/tar-cvzf.png)
+![tar-cvzf](../../99.%20Attachments/Backup/tar-cvzf.png)
 
 Check that the archive exists:
 
@@ -212,7 +213,7 @@ Check that the archive exists:
 ls -l /backup
 ```
 
-![ls-backup](../../99%20.Attachments/Backup/ls-backup.png)
+![ls-backup](../../99.%20Attachments/Backup/ls-backup.png)
 
 Next, inspect the archive without extracting it:
 
@@ -257,7 +258,7 @@ Compare the application configuration file:
 diff config/app.conf restore/config/app.conf
 ```
 
-![restore](../../99%20.Attachments/Backup/restore.png)
+![restore](../../99.%20Attachments/Backup/restore.png)
 
 If the files are identical, `diff` produces no output and returns exit status `0`.
 
@@ -287,7 +288,7 @@ lab01@lab01-ubuntu:~/backup-lab$ diff config/app.conf restore/config/app.conf
 
 ```
 
-![diff](../../99%20.Attachments/Backup/diff.png)
+![diff](../../99.%20Attachments/Backup/diff.png)
 
 The output shows the differences between the two files.
 
